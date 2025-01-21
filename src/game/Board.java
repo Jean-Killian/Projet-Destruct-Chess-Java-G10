@@ -1,7 +1,6 @@
 package game;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.Scanner;
 
 public class Board {
 
@@ -26,15 +25,15 @@ public class Board {
             System.out.println();
         }
 
-    }
-
-    // Function to save the score in a file
-    public static void saveScore(String playerName, int score) {
-        try (FileWriter writer = new FileWriter("scores.txt", true)) {
-            writer.write(playerName + ": " + score + "\n");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving the score.");
-            e.printStackTrace();
+        // Ask the user if they want to save the game after playing ?
+        System.out.println("voulez vous sauvegarder cette partie ? (O/N)");
+        try (Scanner scanner = new Scanner(System.in)) {
+            String choice = scanner.nextLine();
+            if (choice.equals("O")) {
+                System.out.println("Partie sauvegardée !");
+            } else {
+                System.out.println("Partie non sauvegardée.");
+            }
         }
     }
 }
