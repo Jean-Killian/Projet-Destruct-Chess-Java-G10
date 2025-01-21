@@ -21,7 +21,9 @@ public class Game {
             switch (choice) {
                 case 1:
                     // Option pour démarrer une partie (fonctionnalité à implémenter)
-                    System.out.println("Fonctionnalité 'Démarrer une partie' à venir !");
+                    Board.initializeBoard();
+                    Board.displayBoard();
+                    running = false;
                     break;
                 case 2:
                     // Option pour afficher les règles du jeu
@@ -41,7 +43,5 @@ public class Game {
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
         }
-        // Ferme le Scanner pour libérer les ressources utilisées
-        scanner.close();
     }
 }

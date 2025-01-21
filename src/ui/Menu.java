@@ -33,6 +33,8 @@ public class Menu {
         System.out.println("3. Le joueur bloqué est déclaré perdant.");
         System.out.println("4. Vous ne pouvez pas occuper ou détruire une case déjà occupée.");
         System.out.println("5. Le dernier joueur à pouvoir se déplacer gagne.");
+        System.out.println("6. L'utilisateur perd 2 point par partie perdu.");
+        System.out.println("7. Le joueur gagne 5 point par partie gagné.");
         System.out.println("=========================\n");
     }
 
