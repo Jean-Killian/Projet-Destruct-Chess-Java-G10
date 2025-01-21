@@ -1,10 +1,12 @@
 package game;
 
+import java.util.Scanner;
+
 public class Board {
 
     private static String[][] board = new String[10][11];
 
-    // Fonction pour initialiser le plateau
+    // Function to initialize the board
     public static void initializeBoard() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 11; j++) {
@@ -13,7 +15,7 @@ public class Board {
         }
     }
 
-    // Fonction pour afficher le plateau
+    // Function to display the board
     public static void displayBoard() {
         System.out.println("Plateau de jeu : ");
         for (int i = 0; i < 10; i++) {
@@ -22,6 +24,16 @@ public class Board {
             }
             System.out.println();
         }
+
+        // Ask the user if they want to save the game after playing ?
+        System.out.println("voulez vous sauvegarder cette partie ? (O/N)");
+        try (Scanner scanner = new Scanner(System.in)) {
+            String choice = scanner.nextLine();
+            if (choice.equals("O")) {
+                System.out.println("Partie sauvegardée !");
+            } else {
+                System.out.println("Partie non sauvegardée.");
+            }
+        }
     }
-    
 }
