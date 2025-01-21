@@ -1,4 +1,5 @@
 package ui;
+import game.GameSetup;
 import java.util.Scanner;
 
 public class Menu {
@@ -17,7 +18,7 @@ public class Menu {
             switch (choice) {
                 case 1:
                     // Option pour démarrer une partie (fonctionnalité à implémenter)
-                    askPlayerNb(scanner);
+                    GameSetup.getPlayersInfo();
                     running = false;
                     break;
                 case 2:
@@ -58,29 +59,6 @@ public class Menu {
         while (!scanner.hasNextInt()) {
             System.out.println("\n========================================================");
             System.out.println("Entrée invalide. Veuillez entrer un nombre entre 1 et 4.");
-            System.out.println("========================================================\n");
-            System.out.print("Choisissez une option : ");
-            scanner.next(); // Consomme l'entrée invalide
-        }
-
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consomme la nouvelle ligne restante
-        return choice;
-    }
-
-
-
-    public static int askPlayerNb(Scanner scanner) {
-        System.out.println("===== Choissisez le Nombre de Joueurs =====");
-        System.out.println("2 Joueurs");
-        System.out.println("3 Joueurs");
-        System.out.println("4 Joueurs");
-        System.out.print("Choisissez une option : ");
-
-        // Gérer les entrées invalides
-        while (!scanner.hasNextInt()) {
-            System.out.println("\n========================================================");
-            System.out.println("Entrée invalide. Veuillez entrer un nombre entre 2 et 4.");
             System.out.println("========================================================\n");
             System.out.print("Choisissez une option : ");
             scanner.next(); // Consomme l'entrée invalide
