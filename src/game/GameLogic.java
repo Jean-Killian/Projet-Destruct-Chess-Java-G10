@@ -69,6 +69,7 @@ public class GameLogic {
         }
         scanner.close();
     }
+
     /* pseudo code() {
      * if the player encounters an empty square
      * then
