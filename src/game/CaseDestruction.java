@@ -47,3 +47,4 @@ public class CaseDestruction {
         return new byte[]{row, y};
     }
 }
+

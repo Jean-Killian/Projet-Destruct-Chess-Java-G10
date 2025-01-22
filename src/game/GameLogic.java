@@ -3,7 +3,6 @@ import static game.BoardInitializer.initializeBoard;
 import static game.CaseDestruction.destroyCase;
 import static game.PlayerMovement.movePlayer;
 import java.util.Scanner;
-import static game.VerifyWin.isGameOver;
 import static ui.GameDisplay.displayBoard;
 
 /**
@@ -26,7 +25,7 @@ public class GameLogic {
     /**
      * Initializes the board and destroyed squares, then sets the first player.
      *
-     * players Array of players participating in the game.
+     * @param players Array of players participating in the game.
      */
     // Constructor: initializes the board and destroyed squares
     public GameLogic() {
@@ -40,24 +39,19 @@ public class GameLogic {
      * Main loop that handles player turns and prompts for actions.
      */
     // Start the game
-    public void startGame(Player[] players) {
+    public void startGame() {
         Scanner scanner = new Scanner(System.in);
         boolean gameRunning = true;
 
         while (gameRunning) {
-
             displayBoard();
-
-            if (isGameOver()){
-                gameRunning = false;
-            }
-
-            System.out.println("C'est le tour de " + players[currentPlayer - 1].getName());
+            System.out.println("C'est le tour du joueur " + currentPlayer);
 
             // Movement
             System.out.print("Déplacez votre pièce en utilisant Z (haut), Q (gauche), S (bas), D (droite) : ");
             String direction = scanner.nextLine();
             if (movePlayer(direction)) {
+                displayBoard();
                 // Destruction
                 String destruction;
                 boolean isValid;
@@ -69,27 +63,29 @@ public class GameLogic {
                         System.out.println("destruction invalide, réessayer");
                     }
                 } while (!isValid);
-                // Switch to the next player
-                currentPlayer = (currentPlayer == 1) ? 2 : 1;
+
+                // Check if the game is over
+                if (isGameOver()) {
+                    System.out.println("Le jeu est terminé!");
+                    gameRunning = false;
+
+                    // Use the actual players participating in the game
+                    List<String> playerNames = Arrays.asList(players[0].getName(), players[1].getName());
+                    GameScoreManager manager = new GameScoreManager();
+                    manager.updateScores(playerNames);
+
+                    // Validate scores integrity
+                    if (manager.validateScores()) {
+                        System.out.println("Scores integrity is valid.");
+                    } else {
+                        System.out.println("Scores file has been tampered with!");
+                    }
+                } else {
+                    // Switch to the next player
+                    currentPlayer = (currentPlayer == 1) ? 2 : 1;
+                }
             }
         }
         scanner.close();
     }
 }
-
-/*// Minuteur
-long startTime = System.currentTimeMillis();
-long endTime = startTime + 15000; // 15 seconds in milliseconds
-
-            while (System.currentTimeMillis() < endTime) {
-        // Check if the player has made a move within the time limit
-        if (scanner.hasNextLine()) {
-        break;
-        }
-        }
-
-        if (System.currentTimeMillis() >= endTime) {
-        System.out.println("Temps écoulé! Le tour passe au joueur suivant.");
-currentPlayer = (currentPlayer == 1) ? 2 : 1;
-isGameOver();
-            }*/
