@@ -1,7 +1,12 @@
 package ui;
 
+/**
+ * The Rules class is responsible for displaying the game rules.
+ */
 public class Rules {
-    // Affiche les règles du jeu
+    /**
+     * Displays the rules of the game.
+     */
     public static void showRules() {
         System.out.println("\n===== Règles du jeu =====");
         System.out.println("1. Chaque joueur peut déplacer son pion d'une case (verticalement ou horizontalement).");

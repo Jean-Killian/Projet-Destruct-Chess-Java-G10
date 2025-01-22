@@ -6,31 +6,49 @@ import static game.CaseDestruction.destroyCase;
 import static game.PlayerMovement.movePlayer;
 import static ui.GameDisplay.displayBoard;
 
+/**
+ * Responsible for managing the core rules and actions in the Destruct Chess game.
+ */
 public class GameLogic {
+    /**
+     * Game board represented by a 2D char array.
+     */
+    public static char[][] board;      // Game board
+    /**
+     * Tracks which squares have been destroyed.
+     */
+    public static boolean[][] destroyed; // Destroyed squares
+    /**
+     * Indicates the currently active player (1 or 2).
+     */
+    public static int currentPlayer;    // Current player index
 
-    public static char[][] board;      // Plateau de jeu
-    public static boolean[][] destroyed; // Cases détruites
-    public static int currentPlayer;    // Indice du joueur actuel
-
-    // Constructeur : initialise le plateau et les cases détruites
+    /**
+     * Initializes the board and destroyed squares, then sets the first player.
+     * @param players Array of players participating in the game.
+     */
+    // Constructor: initializes the board and destroyed squares
     public GameLogic(Player[] players) {
-        this.board = new char[10][11];      // 10 lignes x 11 colonnes
-        this.destroyed = new boolean[10][11]; // Toutes les cases sont intactes
+        this.board = new char[10][11];      // 10 rows x 11 columns
+        this.destroyed = new boolean[10][11]; // All squares are intact
         initializeBoard();
-        this.currentPlayer = 1; // Le joueur 1 commence
+        this.currentPlayer = 1; // Player 1 starts
     }
 
-    // Démarre la partie
+    /**
+     * Main loop that handles player turns and prompts for actions.
+     */
+    // Start the game
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
         boolean gameRunning = true;
 
         while (gameRunning) {
             displayBoard();
-            System.out.println("C'est au tour du joueur " + currentPlayer);
+            System.out.println("C'est le tour du joueur " + currentPlayer);
 
-            // Déplacement
-            System.out.print("Déplacez votre pion avec Z (haut), Q (gauche), S (bas), D (droite) : ");
+            // Movement
+            System.out.print("Déplacez votre pièce en utilisant Z (haut), Q (gauche), S (bas), D (droite) : ");
             String direction = scanner.nextLine();
             if (movePlayer(direction)) {
                 // Destruction
@@ -44,11 +62,10 @@ public class GameLogic {
                         System.out.println("destruction invalide, réessayer");
                     }
                 } while (!isValid);
-                // Passer au joueur suivant
+                // Switch to the next player
                 currentPlayer = (currentPlayer == 1) ? 2 : 1;
             }
         }
         scanner.close();
     }
 }
-
