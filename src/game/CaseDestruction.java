@@ -30,7 +30,7 @@ public class CaseDestruction {
     private static int[] parsePosition(String position) {
         if (position.length() != 2) return null;
 
-        char col = position.charAt(0);
+        char col = Character.toUpperCase(position.charAt(0));
         char row = position.charAt(1);
 
         int x = row - '1'; // Row
