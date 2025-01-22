@@ -1,72 +1,70 @@
 package ui;
+import game.GameLogic;
 import game.GameSetup;
+import game.Player;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
     public static void menu() {
 
-        Scanner scanner = new Scanner(System.in);
+        String red = "\u001B[31m";
+        String reset = "\u001B[0m"; // Réinitialise la couleur
 
-        // Déclare une variable pour maintenir l'état de la boucle principale du jeu
+        Scanner scanner = new Scanner(System.in); //crée un scanner pour lire les entrées de l'utilisateur depuis la console
         boolean running = true;
-        while (running) {
-            // Appelle la méthode pour afficher le menu et récupérer le choix de l'utilisateur
-            int choice = showMenu(scanner);
 
-            // Utilise un switch pour exécuter différentes actions en fonction du choix de l'utilisateur
+        while (running) {
+            System.out.println("=========== Menu Principal =========");
+            System.out.println("1. Lancer une partie");
+            System.out.println("2. Voir les règles");
+            System.out.println("3. Voir les scores");
+            System.out.println(red + "4. Quitter");
+            System.out.println(reset + "====================================");
+            System.out.print("Choisissez une option : ");
+
+            byte choice = 0;
+
+            try {
+                choice = scanner.nextByte(); // Lecture de l'entrée utilisateur
+                scanner.nextLine(); // Consomme le saut de ligne
+            } catch (InputMismatchException e) {
+                System.out.println("\n====================================================");
+                System.out.println(red + "Erreur : Veuillez entrer un nombre valide entre 1 et 4." + reset);
+                System.out.println("====================================================\n");
+                scanner.nextLine(); // Nettoie le buffer
+                continue; // Reprend la boucle sans traiter l'entrée
+            }
+
             switch (choice) {
                 case 1:
-                    // Option pour démarrer une partie (fonctionnalité à implémenter)
-                    GameSetup.getPlayersInfo();
-                    running = false;
+                    GameSetup setup = new GameSetup();
+                    Player[] players = setup.initializePlayers(); //demande les info au joueur (nombre de joueur et pseudo)
+                    GameLogic gameLogic = new GameLogic(players);
+                    gameLogic.startGame();
                     break;
+
                 case 2:
-                    // Option pour afficher les règles du jeu
-                    Rules.showRules();
+                    Rules.showRules(); // Option pour afficher les règles du jeu
                     break;
+
                 case 3:
-                    // Option pour afficher les scores des joueurs
-                    Score.showScores();
+                    Score.showScores(); // Option pour afficher les scores des joueurs
                     break;
+
                 case 4:
-                    // Option pour quitter le jeu. Met fin à la boucle principale
-                    System.out.println("Merci d'avoir joué ! À bientôt.");
+                    System.out.println("Merci d'avoir joué ! À bientôt."); // Option pour quitter le jeu. Met fin à la boucle principale
                     running = false;
                     break;
+
                 default:
-                    // Gère les choix invalides
-                    System.out.println("\n==================================");
-                    System.out.println("Choix invalide. Veuillez réessayer.");
-                    System.out.println("==================================\n");
+                    System.out.println("\n=====================================");
+                    System.out.println(red + "Option invalide, veuillez réessayer." + reset);
+                    System.out.println("=====================================\n");
             }
         }
-        // Ferme le Scanner pour libérer les ressources utilisées
         scanner.close();
     }
-
-
-    // Affiche le menu et retourne le choix de l'utilisateur
-    public static int showMenu(Scanner scanner) {
-        System.out.println("===== Menu Principal =====");
-        System.out.println("1. Démarrer une partie");
-        System.out.println("2. Voir les règles");
-        System.out.println("3. Voir les scores");
-        System.out.println("4. Quitter");
-        System.out.print("Choisissez une option : ");
-
-        // Gérer les entrées invalides
-        while (!scanner.hasNextInt()) {
-            System.out.println("\n========================================================");
-            System.out.println("Entrée invalide. Veuillez entrer un nombre entre 1 et 4.");
-            System.out.println("========================================================\n");
-            System.out.print("Choisissez une option : ");
-            scanner.next(); // Consomme l'entrée invalide
-        }
-
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consomme la nouvelle ligne restante
-        return choice;
-    }
 }
-
