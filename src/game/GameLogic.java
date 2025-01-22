@@ -1,12 +1,28 @@
 package game;
 import java.util.Scanner;
 
+/**
+ * Responsible for managing the core rules and actions in the Destruct Chess game.
+ */
 public class GameLogic {
 
+    /**
+     * Game board represented by a 2D char array.
+     */
     public static char[][] board;      // Game board
+    /**
+     * Tracks which squares have been destroyed.
+     */
     private boolean[][] destroyed;      // Destroyed squares
+    /**
+     * Indicates the currently active player (1 or 2).
+     */
     private int currentPlayer;         // Current player index
 
+    /**
+     * Initializes the board and destroyed squares, then sets the first player.
+     * @param players Array of players participating in the game.
+     */
     // Constructor: initializes the board and destroyed squares
     public GameLogic(Player[] players) {
         this.board = new char[10][11];      // 10 rows x 11 columns
@@ -15,6 +31,9 @@ public class GameLogic {
         this.currentPlayer = 1; // Player 1 starts
     }
 
+    /**
+     * Sets up the board with empty squares and initial positions for players.
+     */
     // Initialize the board with empty squares and players in the center
     public void initializeBoard() {
         for (int i = 0; i < board.length; i++) {
@@ -26,6 +45,9 @@ public class GameLogic {
         board[5][3] = '2'; // Initial position of player 2
     }
 
+    /**
+     * Displays the current state of the board in the console.
+     */
     // Display the current state of the board
     public static void displayBoard() {
         for (int i = 0; i < board.length; i++) {
@@ -36,6 +58,9 @@ public class GameLogic {
         }
     }
 
+    /**
+     * Main loop that handles player turns and prompts for actions.
+     */
     // Start the game
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
@@ -61,6 +86,11 @@ public class GameLogic {
         scanner.close();
     }
 
+    /**
+     * Moves the current player's piece based on the given direction input.
+     * @param direction W (up), A (left), S (down), D (right)
+     * @return true if the move is valid, otherwise false
+     */
     // Move a player
     private boolean movePlayer(String direction) {
         // Find the current position of the player
@@ -111,6 +141,11 @@ public class GameLogic {
         return true;
     }
 
+    /**
+     * Destroys a specified square on the board, if valid.
+     * @param destruction The notation of the square to destroy (e.g., "C6")
+     * @return true if the destruction is valid, otherwise false
+     */
     // Destroy a square
     private boolean destroyCase(String destruction) {
         int[] pos = parsePosition(destruction);
@@ -123,6 +158,11 @@ public class GameLogic {
         return true;
     }
 
+    /**
+     * Converts a position string (e.g., "C5") to board indices, or returns null if invalid.
+     * @param position The position string
+     * @return An array of two integers [row, column], or null if invalid
+     */
     // Convert position to indices (e.g., C5 -> [4][2])
     private int[] parsePosition(String position) {
         if (position.length() != 2) return null;

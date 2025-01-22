@@ -5,8 +5,14 @@ import game.Player;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * The Menu class handles the main menu interactions for the game.
+ */
 public class Menu {
 
+    /**
+     * Displays the main menu and handles user input for menu options.
+     */
     public static void menu() {
 
         String red = "\u001B[31m";

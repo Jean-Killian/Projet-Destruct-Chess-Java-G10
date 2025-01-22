@@ -1,8 +1,16 @@
 package game;
 import java.util.Scanner;
 
+/**
+ * The GameSetup class handles the initialization of game settings, including player setup.
+ */
 public class GameSetup {
 
+    /**
+     * Initializes the players for the game by prompting the user for the number of players and their names.
+     *
+     * @return An array of Player objects initialized with user-provided names.
+     */
     public Player[] initializePlayers() {
 
         Scanner scanner = new Scanner(System.in); // Create a scanner to read user input from console
