@@ -10,7 +10,7 @@ public class CaseDestruction {
      */
     // Destroy a square
     public static boolean destroyCase(String destruction) {
-        int[] pos = parsePosition(destruction);
+        byte[] pos = parsePosition(destruction);
         if (pos == null || board[pos[0]][pos[1]] == 'X' || board[pos[0]][pos[1]] != '·') {
             System.out.println("Destruction invalide.");
             return false;
@@ -27,16 +27,23 @@ public class CaseDestruction {
      * @return An array of two integers [row, column], or null if invalid
      */
     // Convert position to indices (e.g., C5 -> [4][2])
-    private static int[] parsePosition(String position) {
-        if (position.length() != 2) return null;
+    private static byte[] parsePosition(String position) {
+        // Vérifie si la position est valide en termes de longueur
+        if (position.length() > 3 || position.length() < 2) return null;
 
-        char col = position.charAt(0);
-        char row = position.charAt(1);
+        char col = position.charAt(0); // Récupère la colonne (premier caractère)
+        String rowPart = position.substring(1); // Récupère la ligne de l'index 1 jusqu'à la fin
+        byte row;
 
-        int x = row - '1'; // Row
-        int y = col - 'A'; // Column
+        try {
+            row = (byte) (Integer.parseInt(rowPart) - 1); // Convertit en entier et ajuste pour un index 0-based
+        } catch (NumberFormatException e) {
+            return null; // Retourne null si la partie ligne n'est pas un entier valide
+        }
 
-        if (x < 0 || x >= 10 || y < 0 || y >= 11) return null;
-        return new int[]{x, y};
+        byte y = (byte) (col - 'A'); // Column
+
+        if (row < 0 || row >= 10 || y < 0 || y >= 11) return null;
+        return new byte[]{row, y};
     }
 }

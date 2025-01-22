@@ -47,8 +47,8 @@ public class Menu {
                 case 1:
                     GameSetup setup = new GameSetup();
                     Player[] players = setup.initializePlayers(); // Asks for player info (number of players and nickname)
-                    GameLogic gameLogic = new GameLogic(players);
-                    gameLogic.startGame();
+                    GameLogic gameLogic = new GameLogic();
+                    gameLogic.startGame(players);
                     break;
 
                 case 2:

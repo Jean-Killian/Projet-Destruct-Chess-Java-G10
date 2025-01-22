@@ -6,9 +6,9 @@ public class PlayerMovement {
     // Déplace un joueur
     public static boolean movePlayer(String direction) {
         // Trouver la position actuelle du joueur
-        int currentX = -1, currentY = -1;
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
+        byte currentX = -1, currentY = -1;
+        for (byte i = 0; i < board.length; i++) {
+            for (byte j = 0; j < board[i].length; j++) {
                 if (board[i][j] == (char) ('0' + currentPlayer)) {
                     currentX = i;
                     currentY = j;
@@ -48,7 +48,7 @@ public class PlayerMovement {
         }
 
         // Déplacer le joueur
-        board[currentX][currentY] = '.'; // Effacer l'ancienne position
+        board[currentX][currentY] = '·'; // Effacer l'ancienne position
         board[newX][newY] = (char) ('0' + currentPlayer); // Mettre à jour la nouvelle position
         return true;
     }

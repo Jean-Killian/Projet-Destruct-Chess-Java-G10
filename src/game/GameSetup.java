@@ -38,7 +38,7 @@ public class GameSetup {
         }
 
         Player[] players = new Player[numPlayers];
-        for (int i = 0; i < numPlayers; i++) {
+        for (byte i = 0; i < numPlayers; i++) {
             System.out.print("Entrez le pseudo du joueur " + (i + 1) + " : ");
             String name = scanner.nextLine(); // Read usernames
             players[i] = new Player(name); // Create a Player object for each player
