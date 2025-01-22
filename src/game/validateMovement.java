@@ -18,9 +18,3 @@ public class validateMovement {
         return true; // Placeholder
     }
 }
-/*
- * Pseudo code
- * If a square has been destroyed the player cannot use the broken square
- * else the player can use this square
- * If a player is in front of them, their movements will be limited
- */
