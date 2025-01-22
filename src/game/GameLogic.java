@@ -25,6 +25,7 @@ public class GameLogic {
 
     /**
      * Initializes the board and destroyed squares, then sets the first player.
+     *
      * @param players Array of players participating in the game.
      */
     // Constructor: initializes the board and destroyed squares
