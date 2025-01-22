@@ -54,6 +54,24 @@ public class GameLogic {
 
             System.out.println("C'est le tour de " + players[currentPlayer - 1].getName());
 
+            // Minuteur
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 15000; // 15 seconds in milliseconds
+
+            while (System.currentTimeMillis() < endTime) {
+                // Check if the player has made a move within the time limit
+                if (scanner.hasNextLine()) {
+                    break;
+                }
+            }
+
+            if (System.currentTimeMillis() >= endTime) {
+                System.out.println("Temps écoulé! Le tour passe au joueur suivant.");
+                currentPlayer = (currentPlayer == 1) ? 2 : 1;
+                isGameOver();
+            }
+
+
             // Movement
             System.out.print("Déplacez votre pièce en utilisant Z (haut), Q (gauche), S (bas), D (droite) : ");
             String direction = scanner.nextLine();
