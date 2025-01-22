@@ -13,7 +13,7 @@ public class GameLogic {
     /**
      * Tracks which squares have been destroyed.
      */
-    private boolean[][] destroyed;      // Destroyed squares
+    private static boolean[][] destroyed;      // Destroyed squares
     /**
      * Indicates the currently active player (1 or 2).
      */
@@ -50,9 +50,27 @@ public class GameLogic {
      */
     // Display the current state of the board
     public static void displayBoard() {
+        System.out.println("   A B C D E F G H I J K"); // Column headers
         for (int i = 0; i < board.length; i++) {
+            System.out.print((i + 1) + (i < 9 ? "  " : " ")); // Row numbers
             for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j] + " ");
+                if (destroyed[i][j]) {
+                    System.out.print("■ "); // Destroyed square
+                } else {
+                    switch (board[i][j]) {
+                        case '1':
+                            System.out.print("1 "); // Player 1
+                            break;
+                        case '2':
+                            System.out.print("2 "); // Player 2
+                            break;
+                        case '.':
+                            System.out.print("· "); // Empty square
+                            break;
+                        default:
+                            System.out.print(board[i][j] + " ");
+                    }
+                }
             }
             System.out.println();
         }
@@ -68,14 +86,14 @@ public class GameLogic {
 
         while (gameRunning) {
             displayBoard();
-            System.out.println("Player " + currentPlayer + "'s turn");
+            System.out.println("C'est le tour du joueur " + currentPlayer);
 
             // Movement
-            System.out.print("Move your piece using W (up), A (left), S (down), D (right): ");
+            System.out.print("Déplacez votre pièce en utilisant Z (haut), Q (gauche), S (bas), D (droite) : ");
             String direction = scanner.nextLine();
             if (movePlayer(direction)) {
                 // Destruction
-                System.out.print("Enter a square to destroy (e.g., C6): ");
+                System.out.print("Entrez une case à détruire (par exemple, C6) : ");
                 String destruction = scanner.nextLine();
                 if (destroyCase(destruction)) {
                     // Switch to the next player
