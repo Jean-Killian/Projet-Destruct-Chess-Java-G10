@@ -51,6 +51,7 @@ public class GameLogic {
             System.out.print("Déplacez votre pièce en utilisant Z (haut), Q (gauche), S (bas), D (droite) : ");
             String direction = scanner.nextLine();
             if (movePlayer(direction)) {
+                displayBoard();
                 // Destruction
                 String destruction;
                 boolean isValid;

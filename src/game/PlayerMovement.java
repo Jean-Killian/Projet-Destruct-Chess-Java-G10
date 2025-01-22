@@ -48,7 +48,7 @@ public class PlayerMovement {
         }
 
         // Déplacer le joueur
-        board[currentX][currentY] = '.'; // Effacer l'ancienne position
+        board[currentX][currentY] = '·'; // Effacer l'ancienne position
         board[newX][newY] = (char) ('0' + currentPlayer); // Mettre à jour la nouvelle position
         return true;
     }
