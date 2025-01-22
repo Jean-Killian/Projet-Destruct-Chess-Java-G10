@@ -45,7 +45,22 @@ public class GameLogic {
         while (gameRunning) {
             displayBoard();
             System.out.println("C'est au tour du joueur " + currentPlayer);
+            // Minuteur
+                long startTime = System.currentTimeMillis();
+                long endTime = startTime + 15000; // 15 seconds in milliseconds
 
+                while (System.currentTimeMillis() < endTime) {
+                    // Check if the player has made a move within the time limit
+                    if (scanner.hasNextLine()) {
+                        break;
+                    }
+                }
+
+                if (System.currentTimeMillis() >= endTime) {
+                    System.out.println("Temps écoulé! Le tour passe au joueur suivant.");
+                    currentPlayer = (currentPlayer == 1) ? 2 : 1;
+                    isGameOver();
+                }
             // Déplacement
             System.out.print("Déplacez votre pion avec Z (haut), Q (gauche), S (bas), D (droite) : ");
             String direction = scanner.nextLine();
@@ -159,11 +174,25 @@ public class GameLogic {
         }
 
         // Vérifie toutes les possibiités 
-        return isMovePossible(currentX - 1, currentY) || // Up
-                isMovePossible(currentX + 1, currentY) || // Down
-                isMovePossible(currentX, currentY - 1) || // Left
-                isMovePossible(currentX, currentY + 1); // Right
-    }
+
+            if(isMovePossible(currentX - 1, currentY)) {
+                return true;
+            } else if (isMovePossible(currentX + 1, currentY)) {
+                return true;
+            } else if (isMovePossible(currentX, currentY - 1)) {
+                return true;
+            } else if (isMovePossible(currentX, currentY + 1)) {
+                return true; 
+            } else {
+                return false;
+            }
+        }
+            //ancien code
+            // /*return isMovePossible(currentX - 1, currentY)| | // Up
+           //     isMovePossible(currentX + 1, currentY) || // Down
+            //     isMovePossible(currentX, currentY - 1) || // Left
+            //     isMovePossible(currentX, currentY + 1); // Right
+            // }*/
 
     // Check if the game should end
     public boolean isGameOver() {
