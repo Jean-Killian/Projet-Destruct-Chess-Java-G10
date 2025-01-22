@@ -5,26 +5,27 @@ import java.util.TimerTask;
 public class MinuteurJeu {
     public static void main(String[] args) {
         boolean joueur1Tour = true; // Indique si c'est le tour du joueur 1
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            if (joueur1Tour) {
-                System.out.println("C'est le tour du Joueur 1.");
-            } else {
-                System.out.println("C'est le tour de l'Adversaire.");
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                if (joueur1Tour) {
+                    System.out.println("C'est le tour du Joueur 1.");
+                } else {
+                    System.out.println("C'est le tour de l'Adversaire.");
+                }
+
+                System.out.println("Le minuteur démarre pour 10 secondes...");
+                lancerMinuteur(10); // Lance un minuteur de 10 secondes
+
+                System.out.println("Appuyez sur Entrée pour passer au tour suivant.");
+                scanner.nextLine(); // Attend une action pour passer au tour suivant
+
+                // Changer de joueur
+                joueur1Tour = !joueur1Tour;
             }
-
-            System.out.println("Le minuteur démarre pour 10 secondes...");
-            lancerMinuteur(10); // Lance un minuteur de 10 secondes
-
-            System.out.println("Appuyez sur Entrée pour passer au tour suivant.");
-            scanner.nextLine(); // Attend une action pour passer au tour suivant
-
-            // Changer de joueur
-            joueur1Tour = !joueur1Tour;
         }
     }
 
-    private static void lancerMinuteur(int secondes) {
+    public static void lancerMinuteur(int secondes) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             int tempsRestant = secondes;
@@ -45,5 +46,6 @@ public class MinuteurJeu {
         timer.scheduleAtFixedRate(task, 0, 1000);
 
     }
+    
 
 }
