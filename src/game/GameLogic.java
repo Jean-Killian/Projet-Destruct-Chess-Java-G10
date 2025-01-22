@@ -2,8 +2,14 @@ package game;
 import static game.BoardInitializer.initializeBoard;
 import static game.CaseDestruction.destroyCase;
 import static game.PlayerMovement.movePlayer;
+
+import java.util.List;
 import java.util.Scanner;
+import java.util.Arrays;
+
+import static game.VerifyWin.isGameOver;
 import static ui.GameDisplay.displayBoard;
+
 
 /**
  * Responsible for managing the core rules and actions in the Destruct Chess game.
@@ -25,7 +31,7 @@ public class GameLogic {
     /**
      * Initializes the board and destroyed squares, then sets the first player.
      *
-     * @param players Array of players participating in the game.
+     * players Array of players participating in the game.
      */
     // Constructor: initializes the board and destroyed squares
     public GameLogic() {
@@ -39,7 +45,7 @@ public class GameLogic {
      * Main loop that handles player turns and prompts for actions.
      */
     // Start the game
-    public void startGame() {
+    public void startGame(Player[] players) {
         Scanner scanner = new Scanner(System.in);
         boolean gameRunning = true;
 
