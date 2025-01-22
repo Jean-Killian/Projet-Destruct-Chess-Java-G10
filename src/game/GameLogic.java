@@ -4,6 +4,8 @@ import static game.CaseDestruction.destroyCase;
 import static game.PlayerMovement.movePlayer;
 import java.util.Scanner;
 import static ui.GameDisplay.displayBoard;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Responsible for managing the core rules and actions in the Destruct Chess game.
@@ -22,6 +24,8 @@ public class GameLogic {
      */
     public static int currentPlayer;    // Current player index
 
+    private Player[] players;
+
     /**
      * Initializes the board and destroyed squares, then sets the first player.
      *
@@ -29,6 +33,7 @@ public class GameLogic {
      */
     // Constructor: initializes the board and destroyed squares
     public GameLogic(Player[] players) {
+        this.players = players;
         this.board = new char[10][11];      // 10 rows x 11 columns
         this.destroyed = new boolean[10][11]; // All squares are intact
         initializeBoard();
@@ -63,23 +68,38 @@ public class GameLogic {
                         System.out.println("destruction invalide, réessayer");
                     }
                 } while (!isValid);
-                // Switch to the next player
-                currentPlayer = (currentPlayer == 1) ? 2 : 1;
+
+                // Check if the game is over
+                if (isGameOver()) {
+                    System.out.println("Le jeu est terminé!");
+                    gameRunning = false;
+
+                    // Use the actual players participating in the game
+                    List<String> playerNames = Arrays.asList(players[0].getName(), players[1].getName());
+                    GameScoreManager manager = new GameScoreManager();
+                    manager.updateScores(playerNames);
+
+                    // Validate scores integrity
+                    if (manager.validateScores()) {
+                        System.out.println("Scores integrity is valid.");
+                    } else {
+                        System.out.println("Scores file has been tampered with!");
+                    }
+                } else {
+                    // Switch to the next player
+                    currentPlayer = (currentPlayer == 1) ? 2 : 1;
+                }
             }
         }
         scanner.close();
     }
 
-    /* pseudo code() {
-     * if the player encounters an empty square
-     * then
-     * the player moves
-     * but
-     * if the square is destroyed or occupied by a player
-     * the player will be blocked and therefore cannot move
-     * if one player don't move
-     * game is end
-     * }
+    /**
+     * Checks if a move to the specified coordinates is possible.
+     *
+     * @param x The x-coordinate.
+     * @param y The y-coordinate.
+     * @return True if the move is possible, false otherwise.
      */
     public boolean isMovePossible(int x, int y) {
         if (x < 0 || x >= board.length || y < 0 || y >= board[0].length) {
@@ -91,7 +111,11 @@ public class GameLogic {
         return true;
     }
 
-    // Check if the current player can move
+    /**
+     * Checks if the current player can make any move.
+     *
+     * @return True if the player can move, false otherwise.
+     */
     public boolean canPlayerMove() {
         int currentX = -1, currentY = -1;
         for (int i = 0; i < board.length; i++) {
@@ -105,13 +129,24 @@ public class GameLogic {
         }
 
         // Check all possible moves
-        return isMovePossible(currentX - 1, currentY) || // Up
-                isMovePossible(currentX + 1, currentY) || // Down
-                isMovePossible(currentX, currentY - 1) || // Left
-                isMovePossible(currentX, currentY + 1);   // Right
+        if (isMovePossible(currentX - 1, currentY)) { // Up
+            return true;
+        } else if (isMovePossible(currentX + 1, currentY)) { // Down
+            return true;
+        } else if (isMovePossible(currentX, currentY - 1)) { // Left
+            return true;
+        } else if (isMovePossible(currentX, currentY + 1)) { // Right
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    // Check if the game should end
+    /**
+     * Checks if the game should end.
+     *
+     * @return True if the game is over, false otherwise.
+     */
     public boolean isGameOver() {
         return !canPlayerMove();
     }

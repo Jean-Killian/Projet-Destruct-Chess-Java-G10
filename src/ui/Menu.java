@@ -3,6 +3,7 @@ import game.GameLogic;
 import game.GameSetup;
 import game.Player;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -30,6 +31,11 @@ public class Menu {
             System.out.println(reset + "====================================");
             System.out.print("Choisissez une option : ");
 
+            if (!scanner.hasNext()) {
+                System.out.println("No input available. Exiting menu.");
+                break;
+            }
+
             byte choice = 0;
 
             try {
@@ -41,6 +47,9 @@ public class Menu {
                 System.out.println("====================================================\n");
                 scanner.nextLine(); // Clears the buffer
                 continue; // Restarts the loop without processing the input
+            } catch (NoSuchElementException e) {
+                System.out.println("No input available. Exiting menu.");
+                break;
             }
 
             switch (choice) {
