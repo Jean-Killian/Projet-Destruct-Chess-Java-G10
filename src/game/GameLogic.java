@@ -3,30 +3,30 @@ import java.util.Scanner;
 
 public class GameLogic {
 
-    public static char[][] board;      // Plateau de jeu
-    private boolean[][] destroyed; // Cases détruites
-    private int currentPlayer;    // Indice du joueur actuel
+    public static char[][] board;      // Game board
+    private boolean[][] destroyed;      // Destroyed squares
+    private int currentPlayer;         // Current player index
 
-    // Constructeur : initialise le plateau et les cases détruites
+    // Constructor: initializes the board and destroyed squares
     public GameLogic(Player[] players) {
-        this.board = new char[10][11];      // 10 lignes x 11 colonnes
-        this.destroyed = new boolean[10][11]; // Toutes les cases sont intactes
+        this.board = new char[10][11];      // 10 rows x 11 columns
+        this.destroyed = new boolean[10][11]; // All squares are intact
         initializeBoard();
-        this.currentPlayer = 1; // Le joueur 1 commence
+        this.currentPlayer = 1; // Player 1 starts
     }
 
-    // Initialise le plateau avec des cases vides et les joueurs au centre
+    // Initialize the board with empty squares and players in the center
     public void initializeBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                board[i][j] = '.'; // Case vide
+                board[i][j] = '.'; // Empty square
             }
         }
-        board[5][2] = '1'; // Position initiale du joueur 1
-        board[5][3] = '2'; // Position initiale du joueur 2
+        board[5][2] = '1'; // Initial position of player 1
+        board[5][3] = '2'; // Initial position of player 2
     }
 
-    // Affiche l'état actuel du plateau
+    // Display the current state of the board
     public static void displayBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -36,24 +36,24 @@ public class GameLogic {
         }
     }
 
-    // Démarre la partie
+    // Start the game
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
         boolean gameRunning = true;
 
         while (gameRunning) {
             displayBoard();
-            System.out.println("C'est au tour du joueur " + currentPlayer);
+            System.out.println("Player " + currentPlayer + "'s turn");
 
-            // Déplacement
-            System.out.print("Déplacez votre pion avec Z (haut), Q (gauche), S (bas), D (droite) : ");
+            // Movement
+            System.out.print("Move your piece using W (up), A (left), S (down), D (right): ");
             String direction = scanner.nextLine();
             if (movePlayer(direction)) {
                 // Destruction
-                System.out.print("Entrez une case à détruire (ex: C6) : ");
+                System.out.print("Enter a square to destroy (e.g., C6): ");
                 String destruction = scanner.nextLine();
                 if (destroyCase(destruction)) {
-                    // Passer au joueur suivant
+                    // Switch to the next player
                     currentPlayer = (currentPlayer == 1) ? 2 : 1;
                 }
             }
@@ -61,9 +61,9 @@ public class GameLogic {
         scanner.close();
     }
 
-    // Déplace un joueur
+    // Move a player
     private boolean movePlayer(String direction) {
-        // Trouver la position actuelle du joueur
+        // Find the current position of the player
         int currentX = -1, currentY = -1;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -75,19 +75,19 @@ public class GameLogic {
             }
         }
 
-        // Déterminer la nouvelle position en fonction de la direction
+        // Determine new position based on direction
         int newX = currentX, newY = currentY;
         switch (direction.toUpperCase()) {
-            case "W": // Haut
+            case "W": // Up
                 newX -= 1;
                 break;
-            case "S": // Bas
+            case "S": // Down
                 newX += 1;
                 break;
-            case "A": // Gauche
+            case "A": // Left
                 newY -= 1;
                 break;
-            case "D": // Droite
+            case "D": // Right
                 newY += 1;
                 break;
             default:
@@ -95,7 +95,7 @@ public class GameLogic {
                 return false;
         }
 
-        // Vérifier que la nouvelle position est valide
+        // Verify that the new position is valid
         if (newX < 0 || newX >= board.length || newY < 0 || newY >= board[0].length) {
             System.out.println("Déplacement hors limites.");
             return false;
@@ -105,13 +105,13 @@ public class GameLogic {
             return false;
         }
 
-        // Déplacer le joueur
-        board[currentX][currentY] = '.'; // Effacer l'ancienne position
-        board[newX][newY] = (char) ('0' + currentPlayer); // Mettre à jour la nouvelle position
+        // Move the player
+        board[currentX][currentY] = '.'; // Clear old position
+        board[newX][newY] = (char) ('0' + currentPlayer); // Update new position
         return true;
     }
 
-    // Détruit une case
+    // Destroy a square
     private boolean destroyCase(String destruction) {
         int[] pos = parsePosition(destruction);
         if (pos == null || destroyed[pos[0]][pos[1]] || board[pos[0]][pos[1]] != '.') {
@@ -119,19 +119,19 @@ public class GameLogic {
             return false;
         }
 
-        destroyed[pos[0]][pos[1]] = true; // Marquer la case comme détruite
+        destroyed[pos[0]][pos[1]] = true; // Mark square as destroyed
         return true;
     }
 
-    // Convertit une position en indices (ex: C5 -> [4][2])
+    // Convert position to indices (e.g., C5 -> [4][2])
     private int[] parsePosition(String position) {
         if (position.length() != 2) return null;
 
         char col = position.charAt(0);
         char row = position.charAt(1);
 
-        int x = row - '1'; // Ligne
-        int y = col - 'A'; // Colonne
+        int x = row - '1'; // Row
+        int y = col - 'A'; // Column
 
         if (x < 0 || x >= 10 || y < 0 || y >= 11) return null;
         return new int[]{x, y};
