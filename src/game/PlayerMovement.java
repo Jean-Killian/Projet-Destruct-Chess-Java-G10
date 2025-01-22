@@ -42,7 +42,7 @@ public class PlayerMovement {
             System.out.println("Déplacement hors limites.");
             return false;
         }
-        if (destroyed[newX][newY] || board[newX][newY] != '.') {
+        if (destroyed[newX][newY] || board[newX][newY] != '·') {
             System.out.println("Déplacement invalide. La case est détruite ou occupée.");
             return false;
         }

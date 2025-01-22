@@ -11,7 +11,7 @@ public class CaseDestruction {
     // Destroy a square
     public static boolean destroyCase(String destruction) {
         int[] pos = parsePosition(destruction);
-        if (pos == null || board[pos[0]][pos[1]] == 'X' || board[pos[0]][pos[1]] != '.') {
+        if (pos == null || board[pos[0]][pos[1]] == 'X' || board[pos[0]][pos[1]] != '·') {
             System.out.println("Destruction invalide.");
             return false;
         }

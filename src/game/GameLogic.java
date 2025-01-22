@@ -1,9 +1,8 @@
 package game;
-import java.util.Scanner;
-
 import static game.BoardInitializer.initializeBoard;
 import static game.CaseDestruction.destroyCase;
 import static game.PlayerMovement.movePlayer;
+import java.util.Scanner;
 import static ui.GameDisplay.displayBoard;
 
 /**
@@ -82,10 +81,10 @@ public class GameLogic {
      * }
      */
     public boolean isMovePossible(int x, int y) {
-        if (x < 0 || x >= board.length ||y < 0 || y >= board[0].length) {
+        if (x < 0 || x >= board.length || y < 0 || y >= board[0].length) {
             return false;
         }
-        if (destroyed[x][y] || board[x][y] != '.') {
+        if (destroyed[x][y] || board[x][y] != '·') {
             return false;
         }
         return true;
