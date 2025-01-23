@@ -90,7 +90,7 @@ public class GameLogic {
 
 
                 // Check if the game is over
-                if (isGameOver()) {
+                /*if (isGameOver()) {
                     System.out.println("Le jeu est terminé!");
                     gameRunning = false;
 
@@ -105,14 +105,14 @@ public class GameLogic {
                     } else {
                         System.out.println("Scores file has been tampered with!");
                     }
-                } else {
+                } else {*/
                     // Switch to the next player
                     if (currentPlayer == 0) {
                         currentPlayer = 1;
                     } else {
                         currentPlayer = 0;
                     }
-                }
+
             }
         }
         scanner.close();
