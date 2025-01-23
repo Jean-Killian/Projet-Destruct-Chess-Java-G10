@@ -9,6 +9,8 @@ import java.util.Arrays;
 
 import static game.VerifyWin.isGameOver;
 import static ui.GameDisplay.displayBoard;
+import static ui.Menu.red;
+import static ui.Menu.reset;
 
 /**
  * Responsible for managing the core rules and actions in the Destruct Chess game.
@@ -45,29 +47,43 @@ public class GameLogic {
      */
     // Start the game
     public void startGame(Player[] players) {
+
         Scanner scanner = new Scanner(System.in);
+
         boolean gameRunning = true;
 
         while (gameRunning) {
+
             displayBoard();
+
             System.out.println("C'est le tour de " + players[currentPlayer].getName());
 
             // Movement
             System.out.print("Déplacez votre pièce en utilisant Z (haut), Q (gauche), S (bas), D (droite) : ");
             String direction = scanner.nextLine();
-            if (movePlayer(direction, currentPlayer)) {
+
+            if (movePlayer(direction, (byte) currentPlayer)) {
+
                 displayBoard();
-                // Destruction
+
                 String destruction;
                 boolean isValid;
+
                 do {
+
                     System.out.print("Entrez une case à détruire (ex: C6) : ");
+
                     destruction = scanner.nextLine();
                     isValid = destroyCase(destruction);
+
                     if (!isValid) {
-                        System.out.println("destruction invalide, réessayer");
+                        System.out.println("\n=====================================");
+                        System.out.println(red + "Erreur" + reset + " : destruction invalide, réessayer");
+                        System.out.println("=====================================\n");
                     }
+
                 } while (!isValid);
+
 
                 // Check if the game is over
                 if (isGameOver()) {
@@ -85,7 +101,9 @@ public class GameLogic {
                     } else {
                         System.out.println("Scores file has been tampered with!");
                     }
-                } else {
+                }
+
+                else {
                     // Switch to the next player
                     if (currentPlayer == 0) {
                         currentPlayer = 1;

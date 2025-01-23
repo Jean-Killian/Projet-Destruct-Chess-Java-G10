@@ -10,9 +10,10 @@ public class CaseDestruction {
      */
     // Destroy a square
     public static boolean destroyCase(String destruction) {
+
         byte[] pos = parsePosition(destruction);
-        if (pos == null || board[pos[0]][pos[1]] == 'X' || board[pos[0]][pos[1]] != '·') {
-            System.out.println("Destruction invalide.");
+
+        if (pos == null || board[pos[0]][pos[1]] != '·') {
             return false;
         }
 
@@ -28,6 +29,7 @@ public class CaseDestruction {
      */
     // Convert position to indices (e.g., C5 -> [4][2])
     private static byte[] parsePosition(String position) {
+
         // Vérifie si la position est valide en termes de longueur
         if (position.length() > 3 || position.length() < 2) return null;
 

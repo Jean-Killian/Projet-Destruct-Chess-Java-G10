@@ -9,7 +9,7 @@ import static game.GameLogic.board;
  */
 public class Player {
 
-    public static int[][] playerPositions = new int[2][2];
+    public static byte[][] playerPositions = new byte[2][2];
 
     public static void initializePlayer() {
 
@@ -35,8 +35,6 @@ public class Player {
 
     private static final HashSet<String> usedNames = new HashSet<>();
     private String name;
-    private int x;
-    private int y;
     private int score;
 
     /**

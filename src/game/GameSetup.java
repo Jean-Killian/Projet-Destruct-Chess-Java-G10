@@ -25,6 +25,7 @@ public class GameSetup {
             try {
                 numPlayers = scanner.nextByte(); // Read user input
                 scanner.nextLine(); // Consume newline
+
                 if (numPlayers >= 2 && numPlayers <= 4) {
                     isValidInput = true; // Exit loop if input is correct
                 } else {
