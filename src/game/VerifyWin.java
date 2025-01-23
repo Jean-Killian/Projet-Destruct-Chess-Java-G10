@@ -41,11 +41,24 @@ public class VerifyWin {
 
     // Check if the game should end
     public static boolean isGameOver() {
-        return !canPlayerMove();
+    
+        if (!canPlayerMove()) {
+            System.out.println("End game guys");
+            return true; 
+        }
+    
+        // Check if a move is possible for the current player
+        if (isMovePossible(currentPlayer, currentPlayer)) {
+            return false;
+        } else {
+            return true; 
+        }
+        
     }
+    
 }
 
-/* pseudo code() {
+/* pseudo code isGameOver() {
  * if the player encounters an empty square
  * then
  * the player moves

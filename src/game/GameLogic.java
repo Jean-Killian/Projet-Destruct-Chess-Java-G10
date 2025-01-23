@@ -1,4 +1,5 @@
 package game;
+
 import static game.BoardInitializer.initializeBoard;
 import static game.CaseDestruction.destroyCase;
 import static game.PlayerMovement.movePlayer;
@@ -12,16 +13,15 @@ import static ui.GameDisplay.displayBoard;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
-
 /**
- * Responsible for managing the core rules and actions in the Destruct Chess game.
+ * Responsible for managing the core rules and actions in the Destruct Chess
+ * game.
  */
 public class GameLogic {
     /**
      * Game board represented by a 2D char array.
      */
-    public static char[][] board;      // Game board
+    public static char[][] board; // Game board
     /**
      * Tracks which squares have been destroyed.
      */
@@ -29,7 +29,7 @@ public class GameLogic {
     /**
      * Indicates the currently active player (1 or 2).
      */
-    public static int currentPlayer;    // Current player index
+    public static int currentPlayer; // Current player index
 
     /**
      * Initializes the board and destroyed squares, then sets the first player.
@@ -38,7 +38,7 @@ public class GameLogic {
      */
     // Constructor: initializes the board and destroyed squares
     public GameLogic() {
-        this.board = new char[10][11];      // 10 rows x 11 columns
+        this.board = new char[10][11]; // 10 rows x 11 columns
         this.destroyed = new boolean[10][11]; // All squares are intact
         initializeBoard();
         this.currentPlayer = 1; // Player 1 starts
@@ -97,4 +97,25 @@ public class GameLogic {
         }
         scanner.close();
     }
+    public static boolean peutBougerVers(String direction) {
+        // Logique pour vérifier si le joueur peut bouger dans la direction spécifiée
+        // Remplacez par votre propre logique pour chaque direction
+        switch (direction) {
+            case "avant":
+                // Exemple: Logique pour vérifier si le joueur peut bouger vers l'avant
+                return true; // Remplacez par votre logique réelle
+            case "arriere":
+                // Exemple: Logique pour vérifier si le joueur peut bouger vers l'arrière
+                return true; // Remplacezi par votre logique réelle
+            case "gauche":
+                // Exemple: Logique pour vérifier si le joueur peut bouger vers la gauche
+                return true; // Remplacez par votre logique réelle
+            case "droite":
+                // Exemple: Logique pour vérifier si le joueur peut bouger vers la droite
+                return true; // Remplacez par votre logique réelle
+            default:
+                return false;
+        }
+    }
+    
 }
