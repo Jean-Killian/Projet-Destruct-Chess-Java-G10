@@ -11,13 +11,13 @@ import java.util.Scanner;
  */
 public class Menu {
 
+    public static String red = "\u001B[31m";
+    public static String reset = "\u001B[0m"; // Resets the color
+
     /**
      * Displays the main menu and handles user input for menu options.
      */
     public static void menu() {
-
-        String red = "\u001B[31m";
-        String reset = "\u001B[0m"; // Resets the color
 
         Scanner scanner = new Scanner(System.in); // Creates a scanner to read user input from the console
         boolean running = true;

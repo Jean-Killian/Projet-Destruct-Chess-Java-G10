@@ -9,10 +9,6 @@ import java.util.Arrays;
 
 import static game.VerifyWin.isGameOver;
 import static ui.GameDisplay.displayBoard;
-import java.util.Timer;
-import java.util.TimerTask;
-
-
 
 /**
  * Responsible for managing the core rules and actions in the Destruct Chess game.
@@ -41,7 +37,7 @@ public class GameLogic {
         this.board = new char[10][11];      // 10 rows x 11 columns
         this.destroyed = new boolean[10][11]; // All squares are intact
         initializeBoard();
-        this.currentPlayer = 1; // Player 1 starts
+        this.currentPlayer = 0; // Player 1 starts
     }
 
     /**
@@ -54,12 +50,12 @@ public class GameLogic {
 
         while (gameRunning) {
             displayBoard();
-            System.out.println("C'est le tour du joueur " + currentPlayer);
+            System.out.println("C'est le tour de " + players[currentPlayer].getName());
 
             // Movement
             System.out.print("Déplacez votre pièce en utilisant Z (haut), Q (gauche), S (bas), D (droite) : ");
             String direction = scanner.nextLine();
-            if (movePlayer(direction)) {
+            if (movePlayer(direction, currentPlayer)) {
                 displayBoard();
                 // Destruction
                 String destruction;
@@ -91,7 +87,11 @@ public class GameLogic {
                     }
                 } else {
                     // Switch to the next player
-                    currentPlayer = (currentPlayer == 1) ? 2 : 1;
+                    if (currentPlayer == 0) {
+                        currentPlayer = 1;
+                    } else {
+                        currentPlayer = 0;
+                    }
                 }
             }
         }
