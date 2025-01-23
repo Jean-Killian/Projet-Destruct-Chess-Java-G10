@@ -106,6 +106,7 @@ public class GameLogic {
                         System.out.println("Scores file has been tampered with!");
                     }
                 } else {*/
+
                     // Switch to the next player
                     if (currentPlayer == 0) {
                         currentPlayer = 1;

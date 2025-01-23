@@ -13,40 +13,34 @@ public class GameSetup {
      */
     public Player[] initializePlayers() {
 
-        Scanner scanner = new Scanner(System.in); // Create a scanner to read user input from console
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Combien de joueurs participent (2 à 4) ? ");
+        byte numPlayers = 0;
 
-        byte numPlayers = 0; // Store the chosen number of players
-        boolean isValidInput = false; // Flag to check if input is valid
+        do {
+            System.out.print("Combien de joueurs participent (2 à 4) ? ");
 
-        // Loop to request valid input from user
-        while (!isValidInput) {
-            try {
-                numPlayers = scanner.nextByte(); // Read user input
-                scanner.nextLine(); // Consume newline
+            while (!scanner.hasNextByte()) {
 
-                if (numPlayers >= 2 && numPlayers <= 4) {
-                    isValidInput = true; // Exit loop if input is correct
-                } else {
-                    System.out.print("Nombre invalide. Veuillez entrer un nombre entre 2 et 4 : ");
-                }
-            } catch (Exception e) {
-                // Handle cases where user enters text or incorrect value
                 System.out.print("Entrée invalide. Veuillez entrer un nombre entre 2 et 4 : ");
-                scanner.nextLine(); // Consume incorrect input to avoid infinite loop
+                scanner.next(); // Consomme la mauvaise entrée
             }
-        }
+            numPlayers = scanner.nextByte();
+            scanner.nextLine();
+
+        } while (numPlayers < 2 || numPlayers > 4);
 
         Player[] players = new Player[numPlayers];
-        for (byte i = 0; i < numPlayers; i++) {
-            System.out.print("Entrez le pseudo du joueur " + (i + 1) + " : ");
-            String name = scanner.nextLine(); // Read usernames
-            players[i] = new Player(name); // Create a Player object for each player
-        }
 
+        for (byte i = 0; i < numPlayers; i++) {
+
+            System.out.print("Entrez le pseudo du joueur " + (i + 1) + " : ");
+            String name = scanner.nextLine();
+            players[i] = new Player(name);
+        }
         return players;
     }
 }
+
 
 

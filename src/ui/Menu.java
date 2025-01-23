@@ -39,21 +39,19 @@ public class Menu {
             byte choice = 0;
 
             try {
-                choice = scanner.nextByte(); // Reads user input
+                choice = scanner.nextByte();
                 scanner.nextLine(); // Consumes the newline
+            }
 
-            } catch (InputMismatchException e) {
+            catch(NoSuchElementException e){
 
                 System.out.println("\n====================================================");
                 System.out.println(red + "Erreur : Veuillez entrer un nombre valide entre 1 et 4." + reset);
                 System.out.println("====================================================\n");
                 scanner.nextLine(); // Clears the buffer
-                continue; // Restarts the loop without processing the input
-
-            } catch (NoSuchElementException e) {
-                System.out.println("No input available. Exiting menu.");
-                break;
+                continue; // Restarts the loop
             }
+
 
             switch (choice) {
                 case 1:
