@@ -97,22 +97,24 @@ public class GameLogic {
         }
         scanner.close();
     }
-    public static boolean peutBougerVers(String direction) {
+    // Code added for direction verification
+    public static boolean canMoveTo(String direction) {
         // Logique pour vérifier si le joueur peut bouger dans la direction spécifiée
         // Remplacez par votre propre logique pour chaque direction
         switch (direction) {
             case "avant":
-                // Exemple: Logique pour vérifier si le joueur peut bouger vers l'avant
-                return true; // Remplacez par votre logique réelle
-            case "arriere":
-                // Exemple: Logique pour vérifier si le joueur peut bouger vers l'arrière
-                return true; // Remplacezi par votre logique réelle
+                // Example: Logic to check if the player can move forward
+                return true; // Replace with your actual logic
+            case "backward":
+                // Example: Logic to check if the player can move backward
+                return true; // Replace with your actual logic
             case "gauche":
-                // Exemple: Logique pour vérifier si le joueur peut bouger vers la gauche
-                return true; // Remplacez par votre logique réelle
-            case "droite":
-                // Exemple: Logique pour vérifier si le joueur peut bouger vers la droite
-                return true; // Remplacez par votre logique réelle
+                // Example: Logic to check if the player can move to the left
+                // Example: Logic to check if the player can move to the left
+                return true; // Replace with your actual logic
+            case "right":
+                // Example: Logic to check if the player can move to the right
+                return true; // Replace with your actual logic
             default:
                 return false;
         }
