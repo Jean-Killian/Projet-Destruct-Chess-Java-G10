@@ -11,13 +11,13 @@ import java.util.Scanner;
  */
 public class Menu {
 
+    public static String red = "\u001B[31m";
+    public static String reset = "\u001B[0m"; // Resets the color
+
     /**
      * Displays the main menu and handles user input for menu options.
      */
     public static void menu() {
-
-        String red = "\u001B[31m";
-        String reset = "\u001B[0m"; // Resets the color
 
         Scanner scanner = new Scanner(System.in); // Creates a scanner to read user input from the console
         boolean running = true;
@@ -27,8 +27,8 @@ public class Menu {
             System.out.println("1. Lancer une partie");
             System.out.println("2. Voir les règles");
             System.out.println("3. Voir les scores");
-            System.out.println(red + "4. Quitter");
-            System.out.println(reset + "====================================");
+            System.out.println(red + "4. Quitter" + reset);
+            System.out.println("====================================");
             System.out.print("Choisissez une option : ");
 
             if (!scanner.hasNext()) {
@@ -41,12 +41,15 @@ public class Menu {
             try {
                 choice = scanner.nextByte(); // Reads user input
                 scanner.nextLine(); // Consumes the newline
+
             } catch (InputMismatchException e) {
+
                 System.out.println("\n====================================================");
                 System.out.println(red + "Erreur : Veuillez entrer un nombre valide entre 1 et 4." + reset);
                 System.out.println("====================================================\n");
                 scanner.nextLine(); // Clears the buffer
                 continue; // Restarts the loop without processing the input
+
             } catch (NoSuchElementException e) {
                 System.out.println("No input available. Exiting menu.");
                 break;
