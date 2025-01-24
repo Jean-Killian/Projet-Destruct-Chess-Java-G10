@@ -44,14 +44,14 @@ public class VerifyWin {
     
         if (!canPlayerMove()) {
             System.out.println("End game guys");
-            return true; 
+            return false;
         }
     
         // Check if a move is possible for the current player
         if (isMovePossible(currentPlayer, currentPlayer)) {
-            return false;
+            return true;
         } else {
-            return true; 
+            return false;
         }
         
     }

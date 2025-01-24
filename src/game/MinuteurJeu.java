@@ -38,7 +38,7 @@ public class MinuteurJeu {
                     tempsRestant--;
                 } else {
                     System.out.println("Temps écoulé !");
-                    timer.cancel(); // Arrête le minuteur
+                    timer.cancel();
                 }
             }
         };
